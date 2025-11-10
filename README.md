@@ -33,10 +33,6 @@ Aplicação web que apresenta o projeto **Robótica Educacional**, destacando eq
 
 2. Configure a variável de ambiente:
 
-   ```bash
-   cp .env.example .env
-   ```
-
    Atualize `VITE_API_URL` no arquivo `.env` para apontar ao back-end.
 
 3. Rode a aplicação em modo desenvolvimento:
