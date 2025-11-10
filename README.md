@@ -4,20 +4,6 @@ Aplicação web que apresenta o projeto **Robótica Educacional**, destacando eq
 
 ---
 
-## Sumário
-
-1. [Visão geral](#visão-geral)
-2. [Tecnologias utilizadas](#tecnologias-utilizadas)
-3. [Pré-requisitos](#pré-requisitos)
-4. [Configuração e execução](#configuração-e-execução)
-5. [Scripts disponíveis](#scripts-disponíveis)
-6. [Estrutura de pastas](#estrutura-de-pastas)
-7. [Detalhes por módulo](#detalhes-por-módulo)
-8. [Estilização e tema](#estilização-e-tema)
-9. [Build, testes e deploy](#build-testes-e-deploy)
-
----
-
 ## Visão geral
 
 - **Objetivo**: divulgar o projeto acadêmico Robótica Educacional, com seções dedicadas a objetivos, equipe, metodologia STEAM, resultados e canais de contato/feedback.
