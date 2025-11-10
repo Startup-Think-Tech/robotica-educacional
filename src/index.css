@@ -1,0 +1,29 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    font-synthesis: none;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  html,
+  body {
+    @apply min-h-full bg-brand-lightBg text-brand-lightText font-sans antialiased scroll-smooth transition-colors dark:bg-brand-darkBg dark:text-brand-darkText;
+  }
+
+  body {
+    @apply min-h-screen;
+  }
+
+  a {
+    @apply text-brand-primary font-medium no-underline transition-colors duration-200 dark:text-brand-accent;
+  }
+
+  a:hover {
+    @apply text-brand-accent dark:text-brand-primary;
+  }
+}
