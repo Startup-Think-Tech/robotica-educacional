@@ -40,6 +40,7 @@ export function ResultCard({
           alt={title}
           className="h-full w-full object-cover"
           loading="lazy"
+          decoding="async"
         />
       </div>
       <CardContent className="p-6 sm:p-8 md:p-12">

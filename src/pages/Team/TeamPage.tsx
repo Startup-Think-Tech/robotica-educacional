@@ -172,6 +172,8 @@ export function TeamPage() {
                     alt={`Foto de ${member.name}`}
                     className="h-full w-full object-cover transition duration-500 group-hover:scale-105"
                     loading="lazy"
+                    decoding="async"
+                    fetchPriority={members.indexOf(member) < 3 ? "high" : "low"}
                   />
                 </figure>
 

@@ -134,19 +134,35 @@ export function ResultsPage() {
 
         <div className="relative overflow-hidden rounded-2xl border border-black/10 bg-white/80 shadow-light backdrop-blur-md sm:rounded-3xl dark:border-white/10 dark:bg-white/10">
           <div className="flex overflow-hidden" ref={carouselRef}>
-            {CAROUSEL_SLIDES.map((slide) => (
-              <div
-                key={slide.src}
-                className="relative flex h-64 w-full flex-shrink-0 items-center justify-center sm:p-6 md:h-96 md:p-8"
-              >
-                <img
-                  src={slide.src}
-                  alt={slide.alt}
-                  className="h-full w-[85%] rounded-lg object-cover object-center"
-                  loading="lazy"
-                />
-              </div>
-            ))}
+            {CAROUSEL_SLIDES.map((slide, index) => {
+              // Carrega apenas o slide atual e os 2 próximos para otimizar performance
+              const shouldLoad =
+                index === currentSlide ||
+                index === currentSlide + 1 ||
+                index === currentSlide + 2 ||
+                (currentSlide === CAROUSEL_SLIDES.length - 1 && index === 0) ||
+                (currentSlide === CAROUSEL_SLIDES.length - 2 && index === 0);
+
+              return (
+                <div
+                  key={slide.src}
+                  className="relative flex h-64 w-full flex-shrink-0 items-center justify-center sm:p-6 md:h-96 md:p-8"
+                >
+                  {shouldLoad ? (
+                    <img
+                      src={slide.src}
+                      alt={slide.alt}
+                      className="h-full w-[85%] rounded-lg object-cover object-center"
+                      loading={index === currentSlide ? "eager" : "lazy"}
+                      fetchPriority={index === currentSlide ? "high" : "low"}
+                      decoding="async"
+                    />
+                  ) : (
+                    <div className="h-full w-[85%] rounded-lg bg-brand-lightBgSecondary/50 dark:bg-brand-darkBgSecondary/30 animate-pulse" />
+                  )}
+                </div>
+              );
+            })}
           </div>
 
           <div className="absolute bottom-6 left-1/2 flex -translate-x-1/2 gap-2 sm:bottom-8 md:bottom-10">
