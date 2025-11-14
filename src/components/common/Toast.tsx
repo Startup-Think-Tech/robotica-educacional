@@ -1,3 +1,4 @@
+import { X } from "lucide-react";
 import clsx from "clsx";
 import type { ToastState } from "../../hooks/useToast";
 
@@ -36,7 +37,7 @@ export function Toast({ toast, onClose }: ToastProps) {
           className="rounded-full border border-white/40 p-1 text-xs uppercase tracking-wide transition hover:border-white/70 hover:bg-white/10"
           aria-label="Fechar aviso"
         >
-          X
+          <X className="h-4 w-4" />
         </button>
       </div>
     </div>

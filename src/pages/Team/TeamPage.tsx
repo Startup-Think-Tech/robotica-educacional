@@ -1,3 +1,4 @@
+import { ChevronLeft, ChevronRight } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import daviImg from "../../assets/img/davi.jpg";
 import jessicaImg from "../../assets/img/jessica.jpg";
@@ -146,24 +147,24 @@ export function TeamPage() {
   };
 
   return (
-    <div className="mx-auto max-w-6xl px-4 py-16 text-brand-lightText md:px-8 dark:text-brand-darkText">
+    <div className="mx-auto max-w-6xl px-4 py-8 text-brand-lightText sm:px-6 sm:py-12 md:px-8 md:py-16 dark:text-brand-darkText">
       <section className="text-center md:text-left">
-        <h2 className="text-3xl font-bold uppercase tracking-[0.4rem] text-brand-primary md:text-4xl">
+        <h2 className="text-2xl font-bold uppercase tracking-[0.2rem] text-brand-primary sm:text-3xl sm:tracking-[0.3rem] md:text-4xl md:tracking-[0.4rem]">
           Nossa Equipe
         </h2>
-        <p className="mt-4 max-w-2xl text-lg text-brand-lightTextMuted dark:text-brand-darkTextMuted">
+        <p className="mt-3 max-w-2xl text-sm text-brand-lightTextMuted sm:mt-4 sm:text-base md:text-lg dark:text-brand-darkTextMuted">
           Conheça os talentos e a paixão por tecnologia que movem nosso projeto.
           Uma equipe diversificada e dedicada a entregar o melhor resultado.
         </p>
       </section>
 
-      <div className="relative mt-12">
-        <div className="mt-8 overflow-hidden rounded-3xl border border-black/10 bg-white/80 shadow-light backdrop-blur-lg dark:border-white/10 dark:bg-white/10">
-          <div className="flex gap-6 overflow-x-auto px-6 py-10" ref={containerRef}>
+      <div className="relative mt-8 sm:mt-12">
+        <div className="mt-6 overflow-hidden rounded-2xl border border-black/10 bg-white/80 shadow-light backdrop-blur-lg sm:mt-8 sm:rounded-3xl dark:border-white/10 dark:bg-white/10">
+          <div className="flex gap-4 overflow-x-auto px-4 py-6 sm:gap-6 sm:px-6 sm:py-10" ref={containerRef}>
             {members.map((member) => (
               <article
                 key={member.name}
-                className="group flex w-80 shrink-0 flex-col rounded-2xl bg-brand-lightBgSecondary p-6 shadow-light transition hover:-translate-y-1 hover:shadow-medium dark:bg-brand-darkBgSecondary/70"
+                className="group flex w-72 shrink-0 flex-col rounded-xl bg-brand-lightBgSecondary p-4 shadow-light transition hover:-translate-y-1 hover:shadow-medium sm:w-80 sm:rounded-2xl sm:p-6 dark:bg-brand-darkBgSecondary/70"
               >
                 <figure className="relative aspect-square overflow-hidden rounded-2xl border border-black/10 dark:border-white/10">
                   <img
@@ -174,27 +175,27 @@ export function TeamPage() {
                   />
                 </figure>
 
-                <div className="mt-6 space-y-3">
-                  <span className="text-xs font-semibold uppercase tracking-wide text-brand-accent">
+                <div className="mt-4 space-y-2 sm:mt-6 sm:space-y-3">
+                  <span className="text-[10px] font-semibold uppercase tracking-wide text-brand-accent sm:text-xs">
                     {member.role}
                   </span>
-                  <h3 className="text-xl font-semibold text-brand-primary">
+                  <h3 className="text-lg font-semibold text-brand-primary sm:text-xl">
                     {member.name}
                   </h3>
-                  <p className="text-sm font-medium text-brand-lightTextMuted dark:text-brand-darkTextMuted">
+                  <p className="text-xs font-medium text-brand-lightTextMuted sm:text-sm dark:text-brand-darkTextMuted">
                     {member.course}
                   </p>
-                  <p className="text-sm leading-relaxed text-brand-lightTextMuted dark:text-brand-darkTextMuted/80">
+                  <p className="text-xs leading-relaxed text-brand-lightTextMuted sm:text-sm dark:text-brand-darkTextMuted/80">
                     {member.bio}
                   </p>
                 </div>
 
-                <div className="mt-6 flex gap-3">
+                <div className="mt-4 flex gap-2 sm:mt-6 sm:gap-3">
                   <a
                     href={member.linkedin}
                     target="_blank"
                     rel="noreferrer"
-                    className="flex-1 rounded-full border border-brand-primary/40 px-4 py-2 text-center text-sm font-semibold text-brand-primary transition hover:border-brand-primary hover:bg-brand-primary/10"
+                    className="flex-1 rounded-full border border-brand-primary/40 px-3 py-1.5 text-center text-xs font-semibold text-brand-primary transition hover:border-brand-primary hover:bg-brand-primary/10 sm:px-4 sm:py-2 sm:text-sm"
                   >
                     LinkedIn
                   </a>
@@ -202,7 +203,7 @@ export function TeamPage() {
                     href={member.github}
                     target="_blank"
                     rel="noreferrer"
-                    className="flex-1 rounded-full border border-brand-accent/40 px-4 py-2 text-center text-sm font-semibold text-brand-accent transition hover:border-brand-accent hover:bg-brand-accent/10"
+                    className="flex-1 rounded-full border border-brand-accent/40 px-3 py-1.5 text-center text-xs font-semibold text-brand-accent transition hover:border-brand-accent hover:bg-brand-accent/10 sm:px-4 sm:py-2 sm:text-sm"
                   >
                     GitHub
                   </a>
@@ -218,18 +219,7 @@ export function TeamPage() {
             aria-label="Membros anteriores"
             disabled={!canScrollLeft}
           >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              className="h-5 w-5"
-            >
-              <polyline points="15 18 9 12 15 6" />
-            </svg>
+            <ChevronLeft className="h-5 w-5" />
           </button>
           <button
             type="button"
@@ -238,18 +228,7 @@ export function TeamPage() {
             aria-label="Próximos membros"
             disabled={!canScrollRight}
           >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              className="h-5 w-5"
-            >
-              <polyline points="9 18 15 12 9 6" />
-            </svg>
+            <ChevronRight className="h-5 w-5" />
           </button>
         </div>
       </div>

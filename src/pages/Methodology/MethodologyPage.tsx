@@ -29,30 +29,30 @@ const BENEFITS = [
 
 export function MethodologyPage() {
   return (
-    <div className="mx-auto flex max-w-5xl flex-col gap-12 px-4 py-16 text-brand-lightText md:px-8 dark:text-brand-darkText">
+    <div className="mx-auto flex max-w-5xl flex-col gap-8 px-4 py-8 text-brand-lightText sm:gap-10 sm:px-6 sm:py-12 md:gap-12 md:px-8 md:py-16 dark:text-brand-darkText">
       <header className="text-center md:text-left">
-        <h1 className="text-4xl font-bold uppercase tracking-[0.4rem] text-brand-primary">
+        <h1 className="text-2xl font-bold uppercase tracking-[0.2rem] text-brand-primary sm:text-3xl sm:tracking-[0.3rem] md:text-4xl md:tracking-[0.4rem]">
           Metodologia
         </h1>
       </header>
 
-      <section className="grid gap-4 rounded-3xl border border-black/10 bg-white/80 p-8 shadow-light backdrop-blur-md dark:border-white/10 dark:bg-white/10 sm:grid-cols-5">
+      <section className="flex flex-col gap-3 rounded-2xl border border-black/10 bg-white/80 p-4 shadow-light backdrop-blur-md dark:border-white/10 dark:bg-white/10 sm:grid sm:grid-cols-5 sm:gap-4 sm:rounded-3xl sm:p-8">
         {STEAM_CARDS.map((card) => (
           <div
             key={card.label}
-            className={`flex flex-col items-center justify-center rounded-2xl p-6 text-center font-bold uppercase tracking-wide ${card.color}`}
+            className={`flex flex-col items-center justify-center rounded-xl p-3 text-center font-bold uppercase tracking-wide sm:rounded-2xl sm:p-6 ${card.color}`}
           >
-            <span className="text-3xl md:text-4xl">{card.label}</span>
-            <p className="mt-2 text-sm font-semibold">{card.text}</p>
+            <span className="text-2xl sm:text-3xl md:text-4xl">{card.label}</span>
+            <p className="mt-1 text-[10px] font-semibold sm:mt-2 sm:text-xs md:text-sm">{card.text}</p>
           </div>
         ))}
       </section>
 
-      <section className="space-y-6 rounded-3xl border border-black/10 bg-white/80 p-8 shadow-light backdrop-blur-md dark:border-white/10 dark:bg-white/10 md:p-12">
-        <h2 className="text-2xl font-semibold text-brand-accent md:text-3xl">
+      <section className="space-y-4 rounded-2xl border border-black/10 bg-white/80 p-6 shadow-light backdrop-blur-md dark:border-white/10 dark:bg-white/10 sm:space-y-6 sm:rounded-3xl sm:p-8 md:p-12">
+        <h2 className="text-xl font-semibold text-brand-accent sm:text-2xl md:text-3xl">
           O que é?
         </h2>
-        <p className="text-base leading-relaxed text-brand-lightTextMuted dark:text-brand-darkTextMuted">
+        <p className="text-sm leading-relaxed text-brand-lightTextMuted sm:text-base dark:text-brand-darkTextMuted">
           A metodologia STEAM é uma forma inovadora de ensinar e aprender que
           combina cinco áreas essenciais do conhecimento: Science (Ciência),
           Technology (Tecnologia), Engineering (Engenharia), Arts (Artes) e
@@ -88,16 +88,16 @@ export function MethodologyPage() {
         </ul>
       </section>
 
-      <section className="space-y-6 rounded-3xl border border-black/10 bg-white/80 p-8 shadow-light backdrop-blur-md dark:border-white/10 dark:bg-white/10 md:p-12">
-        <h2 className="text-2xl font-semibold text-brand-accent md:text-3xl">
+      <section className="space-y-4 rounded-2xl border border-black/10 bg-white/80 p-6 shadow-light backdrop-blur-md dark:border-white/10 dark:bg-white/10 sm:space-y-6 sm:rounded-3xl sm:p-8 md:p-12">
+        <h2 className="text-xl font-semibold text-brand-accent sm:text-2xl md:text-3xl">
           Como funciona na prática?
         </h2>
-        <p className="text-base leading-relaxed text-brand-lightTextMuted dark:text-brand-darkTextMuted">
+        <p className="text-sm leading-relaxed text-brand-lightTextMuted sm:text-base dark:text-brand-darkTextMuted">
           Em vez de ensinar cada disciplina isoladamente, a metodologia propõe
           atividades integradas. Por exemplo: Um projeto em que os alunos criam
           um protótipo de casa sustentável envolve:
         </p>
-        <ul className="grid gap-3 text-base font-medium text-brand-lightTextMuted dark:text-brand-darkTextMuted md:grid-cols-2">
+        <ul className="grid gap-2 text-sm font-medium text-brand-lightTextMuted sm:gap-3 sm:text-base dark:text-brand-darkTextMuted md:grid-cols-2">
           {PRACTICE_ITEMS.map((item) => (
             <li key={item} className="flex items-start gap-2">
               <span aria-hidden className="mt-1 text-brand-accent">
@@ -109,11 +109,11 @@ export function MethodologyPage() {
         </ul>
       </section>
 
-      <section className="space-y-6 rounded-3xl border border-black/10 bg-white/80 p-8 shadow-light backdrop-blur-md dark:border-white/10 dark:bg-white/10 md:p-12">
-        <h2 className="text-2xl font-semibold text-brand-accent md:text-3xl">
+      <section className="space-y-4 rounded-2xl border border-black/10 bg-white/80 p-6 shadow-light backdrop-blur-md dark:border-white/10 dark:bg-white/10 sm:space-y-6 sm:rounded-3xl sm:p-8 md:p-12">
+        <h2 className="text-xl font-semibold text-brand-accent sm:text-2xl md:text-3xl">
           Benefícios da abordagem STEAM
         </h2>
-        <ul className="grid gap-3 text-base font-medium text-brand-lightTextMuted dark:text-brand-darkTextMuted md:grid-cols-2">
+        <ul className="grid gap-2 text-sm font-medium text-brand-lightTextMuted sm:gap-3 sm:text-base dark:text-brand-darkTextMuted md:grid-cols-2">
           {BENEFITS.map((benefit) => (
             <li key={benefit} className="flex items-start gap-2">
               <span aria-hidden className="mt-1 text-brand-accent">

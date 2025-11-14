@@ -1,5 +1,6 @@
 import clsx from "clsx";
 import { useCallback, useEffect, useRef, useState } from "react";
+import { ResultCard } from "../../components/ui/ResultCard";
 import planning1 from "../../assets/img/carroussel/img1.jpg";
 import planning2 from "../../assets/img/carroussel/img2.jpg";
 import planning4 from "../../assets/img/carroussel/img4.jpg";
@@ -21,7 +22,14 @@ const CAROUSEL_SLIDES = [
   { src: planning7, alt: "Planejamento - Imagem 7" },
 ];
 
-const RESULT_SECTIONS = [
+interface ResultSection {
+  title: string;
+  description: string;
+  image: string;
+  orientation: "text-left" | "text-right";
+}
+
+const RESULT_SECTIONS: ResultSection[] = [
   {
     title: "Apresentação do Projeto",
     description:
@@ -58,6 +66,22 @@ const RESULT_SECTIONS = [
     orientation: "text-left" as const,
   },
 ];
+
+function ResultCardList({ sections }: { sections: ResultSection[] }) {
+  return (
+    <div className="flex flex-col gap-10">
+      {sections.map((section) => (
+        <ResultCard
+          key={section.title}
+          title={section.title}
+          description={section.description}
+          image={section.image}
+          orientation={section.orientation}
+        />
+      ))}
+    </div>
+  );
+}
 
 export function ResultsPage() {
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -102,30 +126,30 @@ export function ResultsPage() {
   }, [currentSlide, scrollToSlide]);
 
   return (
-    <div className="mx-auto flex max-w-6xl flex-col gap-12 px-4 py-16 text-brand-lightText md:px-8 dark:text-brand-darkText">
-      <section className="space-y-6">
-        <h2 className="text-center text-3xl font-bold uppercase tracking-[0.4rem] text-brand-primary md:text-left md:text-4xl">
+    <div className="mx-auto flex max-w-7xl flex-col gap-8 px-4 py-8 text-brand-lightText sm:gap-10 sm:px-6 sm:py-12 md:gap-12 md:px-8 md:py-16 dark:text-brand-darkText">
+      <section className="space-y-4 sm:space-y-6">
+        <h2 className="text-center text-2xl font-bold uppercase tracking-[0.2rem] text-brand-primary sm:text-3xl sm:tracking-[0.3rem] md:text-left md:text-4xl md:tracking-[0.4rem]">
           Nosso Ponto de Partida
         </h2>
 
-        <div className="relative overflow-hidden rounded-3xl border border-black/10 bg-white/80 shadow-light backdrop-blur-md dark:border-white/10 dark:bg-white/10">
+        <div className="relative overflow-hidden rounded-2xl border border-black/10 bg-white/80 shadow-light backdrop-blur-md sm:rounded-3xl dark:border-white/10 dark:bg-white/10">
           <div className="flex overflow-hidden" ref={carouselRef}>
             {CAROUSEL_SLIDES.map((slide) => (
               <div
                 key={slide.src}
-                className="relative h-64 w-full flex-shrink-0 md:h-96"
+                className="relative flex h-64 w-full flex-shrink-0 items-center justify-center sm:p-6 md:h-96 md:p-8"
               >
                 <img
                   src={slide.src}
                   alt={slide.alt}
-                  className="h-full w-full object-cover"
+                  className="h-full w-[85%] rounded-lg object-cover object-center"
                   loading="lazy"
                 />
               </div>
             ))}
           </div>
 
-          <div className="absolute bottom-4 left-1/2 flex -translate-x-1/2 gap-2">
+          <div className="absolute bottom-6 left-1/2 flex -translate-x-1/2 gap-2 sm:bottom-8 md:bottom-10">
             {CAROUSEL_SLIDES.map((_, index) => (
               <button
                 key={index}
@@ -143,26 +167,26 @@ export function ResultsPage() {
           </div>
         </div>
 
-        <article className="rounded-3xl bg-white/80 p-8 shadow-light backdrop-blur-md dark:bg-white/10 md:p-12">
-          <h3 className="text-center text-2xl font-semibold text-brand-accent md:text-left md:text-3xl">
+        <article className="rounded-2xl bg-white/80 p-6 shadow-light backdrop-blur-md dark:bg-white/10 sm:rounded-3xl sm:p-8 md:p-12">
+          <h3 className="text-center text-xl font-semibold text-brand-accent sm:text-2xl md:text-left md:text-3xl">
             Planejamento do Projeto
           </h3>
-          <p className="mt-6 text-base leading-relaxed text-brand-lightTextMuted dark:text-brand-darkTextMuted">
+          <p className="mt-4 text-sm leading-relaxed text-brand-lightTextMuted sm:mt-6 sm:text-base dark:text-brand-darkTextMuted">
             Nossa equipe Think Tech escolheu a Escola Estadual Ângelo Ramazzoti
             para a primeira fase do projeto de extensão. O tema? Robótica
             Educacional! A estrutura de ponta da escola foi essencial,
             permitindo-nos focar em um projeto que realmente colocasse os alunos
-            para “pôr a mão na massa”, estimulando a curiosidade e a criatividade
+            para "pôr a mão na massa", estimulando a curiosidade e a criatividade
             desde cedo.
           </p>
-          <p className="mt-4 text-base leading-relaxed text-brand-lightTextMuted dark:text-brand-darkTextMuted">
+          <p className="mt-4 text-sm leading-relaxed text-brand-lightTextMuted sm:text-base dark:text-brand-darkTextMuted">
             O Professor Frank foi um pilar fundamental! Ele não só acompanhou
             todo o planejamento inicial como garantiu a permissão para usarmos o
             coração da inovação da escola: a Sala Maker. Juntos, exploramos o
             ambiente e as possibilidades de protótipos, transformando ideias em
             um plano concreto para o grande dia.
           </p>
-          <p className="mt-4 text-base leading-relaxed text-brand-lightTextMuted dark:text-brand-darkTextMuted">
+          <p className="mt-4 text-sm leading-relaxed text-brand-lightTextMuted sm:text-base dark:text-brand-darkTextMuted">
             Após intensas discussões e pensando no máximo engajamento, chegamos
             à decisão: o projeto prático seria o “Percurso em Linha Reta usando
             um Carrinho Robô”. Acreditamos que a natureza divertida e lúdica
@@ -172,47 +196,18 @@ export function ResultsPage() {
         </article>
       </section>
 
-      <section className="space-y-10">
+      <section className="space-y-6 sm:space-y-10">
         <header className="text-center md:text-left">
-          <h2 className="text-3xl font-bold uppercase tracking-[0.4rem] text-brand-primary md:text-4xl">
+          <h2 className="text-2xl font-bold uppercase tracking-[0.2rem] text-brand-primary sm:text-3xl sm:tracking-[0.3rem] md:text-4xl md:tracking-[0.4rem]">
             Resultados
           </h2>
-          <p className="mt-3 text-lg text-brand-lightTextMuted dark:text-brand-darkTextMuted">
+          <p className="mt-2 text-sm text-brand-lightTextMuted sm:mt-3 sm:text-base md:text-lg dark:text-brand-darkTextMuted">
             Conheça os resultados e conquistas da nossa oficina de robótica
             educacional.
           </p>
         </header>
 
-        <div className="flex flex-col gap-10">
-          {RESULT_SECTIONS.map((section) => (
-            <article
-              key={section.title}
-              className="grid gap-6 overflow-hidden rounded-3xl border border-black/10 bg-white/80 shadow-light backdrop-blur-md transition hover:shadow-medium dark:border-white/10 dark:bg-white/10 md:grid-cols-2 md:items-center md:gap-10"
-            >
-              <div
-                className={clsx(
-                  "relative h-full",
-                  section.orientation === "text-right" && "md:order-2"
-                )}
-              >
-                <img
-                  src={section.image}
-                  alt={section.title}
-                  className="h-full w-full object-cover"
-                  loading="lazy"
-                />
-              </div>
-              <div className="p-8 md:p-12">
-                <h3 className="text-2xl font-semibold text-brand-accent md:text-3xl">
-                  {section.title}
-                </h3>
-                <p className="mt-4 text-base leading-relaxed text-brand-lightTextMuted dark:text-brand-darkTextMuted">
-                  {section.description}
-                </p>
-              </div>
-            </article>
-          ))}
-        </div>
+        <ResultCardList sections={RESULT_SECTIONS} />
       </section>
     </div>
   );

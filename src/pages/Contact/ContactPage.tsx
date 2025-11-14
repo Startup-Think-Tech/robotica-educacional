@@ -3,6 +3,15 @@ import type { ChangeEvent, FormEvent } from "react";
 import { Toast } from "../../components/common/Toast";
 import { useToast } from "../../hooks/useToast";
 import { submitContact } from "../../services/api";
+import { Button } from "../../components/ui/button";
+import { FormInput, FormTextarea } from "../../components/ui/form-field";
+
+interface FormErrors {
+  name?: string;
+  email?: string;
+  subject?: string;
+  message?: string;
+}
 
 export function ContactPage() {
   const [formValues, setFormValues] = useState({
@@ -11,6 +20,7 @@ export function ContactPage() {
     subject: "",
     message: "",
   });
+  const [errors, setErrors] = useState<FormErrors>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const { toast, showToast, hideToast } = useToast();
 
@@ -20,6 +30,38 @@ export function ContactPage() {
       ...prev,
       [name]: value,
     }));
+    // Limpar erro do campo quando o usuário começar a digitar
+    if (errors[name as keyof FormErrors]) {
+      setErrors((prev) => ({
+        ...prev,
+        [name]: undefined,
+      }));
+    }
+  };
+
+  const validateForm = (): boolean => {
+    const newErrors: FormErrors = {};
+
+    if (!formValues.name.trim()) {
+      newErrors.name = "Nome é obrigatório";
+    }
+
+    if (!formValues.email.trim()) {
+      newErrors.email = "E-mail é obrigatório";
+    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formValues.email.trim())) {
+      newErrors.email = "E-mail inválido";
+    }
+
+    if (!formValues.subject.trim()) {
+      newErrors.subject = "Assunto é obrigatório";
+    }
+
+    if (!formValues.message.trim()) {
+      newErrors.message = "Mensagem é obrigatória";
+    }
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
   };
 
   const resetForm = () => {
@@ -29,10 +71,21 @@ export function ContactPage() {
       subject: "",
       message: "",
     });
+    setErrors({});
   };
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+
+    if (!validateForm()) {
+      showToast({
+        title: "Erro de validação",
+        message: "Por favor, preencha todos os campos obrigatórios corretamente.",
+        variant: "error",
+      });
+      return;
+    }
+
     try {
       setIsSubmitting(true);
       await submitContact({
@@ -62,102 +115,74 @@ export function ContactPage() {
   };
 
   return (
-    <div className="mx-auto max-w-5xl px-4 py-16 text-brand-lightText md:px-8 dark:text-brand-darkText">
-      <div className="rounded-3xl border border-black/10 bg-white/80 p-8 shadow-light backdrop-blur-md dark:border-white/10 dark:bg-white/10 md:p-12">
-        <header className="space-y-3 text-center md:text-left">
-          <h1 className="text-4xl font-bold uppercase tracking-[0.4rem] text-brand-primary">
+    <div className="mx-auto max-w-5xl px-4 py-8 text-brand-lightText sm:px-6 sm:py-12 md:px-8 md:py-16 dark:text-brand-darkText">
+      <div className="rounded-2xl border border-black/10 bg-white/80 p-6 shadow-light backdrop-blur-md dark:border-white/10 dark:bg-white/10 sm:rounded-3xl sm:p-8 md:p-12">
+        <header className="space-y-2 text-center sm:space-y-3 md:text-left">
+          <h1 className="text-2xl font-bold uppercase tracking-[0.2rem] text-brand-primary sm:text-3xl sm:tracking-[0.3rem] md:text-4xl md:tracking-[0.4rem]">
             Fale Conosco 📬
           </h1>
-          <p className="text-lg text-brand-lightTextMuted dark:text-brand-darkTextMuted">
+          <p className="text-sm text-brand-lightTextMuted sm:text-base md:text-lg dark:text-brand-darkTextMuted">
             Entre em contato conosco para tirar dúvidas, fazer sugestões ou
             solicitar informações sobre nossos projetos.
           </p>
         </header>
 
-        <form className="mt-10 grid gap-6" onSubmit={handleSubmit}>
-          <div className="space-y-2">
-            <label
-              htmlFor="name"
-              className="text-sm font-semibold text-brand-primary"
-            >
-              Nome *
-            </label>
-            <input
-              id="name"
-              name="name"
-              type="text"
-              required
-              placeholder="Digite seu nome completo"
-              value={formValues.name}
-              onChange={handleChange}
-              className="w-full rounded-2xl border border-black/10 bg-white px-4 py-3 text-sm text-brand-lightText shadow-light transition focus:border-brand-primary focus:outline-none focus:ring-2 focus:ring-brand-primary/40 dark:border-white/10 dark:bg-white/60 dark:text-brand-darkText"
-            />
-          </div>
+        <form className="mt-6 grid gap-4 sm:mt-10 sm:gap-6" onSubmit={handleSubmit}>
+          <FormInput
+            id="name"
+            name="name"
+            type="text"
+            label="Nome"
+            required
+            placeholder="Digite seu nome completo"
+            value={formValues.name}
+            onChange={handleChange}
+            error={errors.name}
+          />
 
-          <div className="space-y-2">
-            <label
-              htmlFor="email"
-              className="text-sm font-semibold text-brand-primary"
-            >
-              E-mail *
-            </label>
-            <input
-              id="email"
-              name="email"
-              type="email"
-              required
-              placeholder="Digite seu e-mail válido"
-              value={formValues.email}
-              onChange={handleChange}
-              className="w-full rounded-2xl border border-black/10 bg-white px-4 py-3 text-sm text-brand-lightText shadow-light transition focus:border-brand-primary focus:outline-none focus:ring-2 focus:ring-brand-primary/40 dark:border-white/10 dark:bg-white/60 dark:text-brand-darkText"
-            />
-          </div>
+          <FormInput
+            id="email"
+            name="email"
+            type="email"
+            label="E-mail"
+            required
+            placeholder="Digite seu e-mail válido"
+            value={formValues.email}
+            onChange={handleChange}
+            error={errors.email}
+          />
 
-          <div className="space-y-2">
-            <label
-              htmlFor="subject"
-              className="text-sm font-semibold text-brand-primary"
-            >
-              Assunto *
-            </label>
-            <input
-              id="subject"
-              name="subject"
-              type="text"
-              required
-              placeholder="Digite o assunto da sua mensagem"
-              value={formValues.subject}
-              onChange={handleChange}
-              className="w-full rounded-2xl border border-black/10 bg-white px-4 py-3 text-sm text-brand-lightText shadow-light transition focus:border-brand-primary focus:outline-none focus:ring-2 focus:ring-brand-primary/40 dark:border-white/10 dark:bg-white/60 dark:text-brand-darkText"
-            />
-          </div>
+          <FormInput
+            id="subject"
+            name="subject"
+            type="text"
+            label="Assunto"
+            required
+            placeholder="Digite o assunto da sua mensagem"
+            value={formValues.subject}
+            onChange={handleChange}
+            error={errors.subject}
+          />
 
-          <div className="space-y-2">
-            <label
-              htmlFor="message"
-              className="text-sm font-semibold text-brand-primary"
-            >
-              Mensagem *
-            </label>
-            <textarea
-              id="message"
-              name="message"
-              rows={4}
-              required
-              placeholder="Escreva sua mensagem aqui..."
-              value={formValues.message}
-              onChange={handleChange}
-              className="w-full rounded-2xl border border-black/10 bg-white px-4 py-3 text-sm text-brand-lightText shadow-light transition focus:border-brand-primary focus:outline-none focus:ring-2 focus:ring-brand-primary/40 dark:border-white/10 dark:bg-white/60 dark:text-brand-darkText"
-            />
-          </div>
+          <FormTextarea
+            id="message"
+            name="message"
+            label="Mensagem"
+            required
+            rows={4}
+            placeholder="Escreva sua mensagem aqui..."
+            value={formValues.message}
+            onChange={handleChange}
+            error={errors.message}
+          />
 
-          <button
+          <Button
             type="submit"
             disabled={isSubmitting}
-            className="mt-4 w-full rounded-full bg-brand-primary px-6 py-3 text-center text-sm font-semibold uppercase tracking-wide text-white shadow-light transition hover:bg-brand-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-accent disabled:opacity-50"
+            className="mt-4"
           >
             {isSubmitting ? "Enviando..." : "Enviar mensagem"}
-          </button>
+          </Button>
         </form>
       </div>
 
